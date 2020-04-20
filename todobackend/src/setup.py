@@ -6,7 +6,7 @@ setup (
     description             = "Todobackend Django REST service",
     packages                = find_packages(),
     include_package_data    = True,
-    script                  = ["manage.py"],
+    scripts                  = ["manage.py"],
     install_requires        = [ "asgiref==3.2.7",
                                 "Django==3.0.5",
                                 "django-cors-headers==3.2.1",

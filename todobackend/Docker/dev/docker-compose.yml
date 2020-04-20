@@ -6,6 +6,8 @@ services:
             context: ../../../
             dockerfile: todobackend/Docker/dev/Dockerfile
         command: python3 manage.py test todo.tests
+        volumes:
+            - build:/build
         environment: 
             DJANGO_SETTINGS_MODULE: todobackend.settings.test
             MYSQL_HOST: db
@@ -31,8 +33,9 @@ services:
             dockerfile: todobackend/Docker/dev/Dockerfile
         volumes: 
             - ../../../target:/wheelhouse
+            - build:/build
         entrypoint: "entrypoint.sh"
-        command: ["pip", "wheel", "."]
+        command: ["pip", "wheel", "--no-index", "-f /build", "."]
 
     db:
         image: mysql:5.7
@@ -47,3 +50,6 @@ services:
             MYSQL_PASSWORD: password
         volumes:
             - ~/mysql_db/:/var/lib/mysql:delegated
+        
+volumes: 
+    build:

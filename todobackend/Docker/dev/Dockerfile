@@ -21,6 +21,8 @@ VOLUME /wheelhouse
 # Output: Test reports are output here
 VOLUME /reports
 
+# Output: pip packages will be downloaded here and shared between test and build stages
+VOLUME /build
 
 # Add test entrypoint script
 COPY todobackend/scripts/test.sh /usr/local/bin/test.sh
@@ -35,10 +37,12 @@ CMD ["python", "manage.py", "test", "--noinput"]
 COPY todobackend/src/requirements.txt /application/
 COPY todobackend/src/requirements_test.txt /application/
 COPY todobackend/src/setup.py /application/
+COPY todobackend/src/manage.py /application/
 
 WORKDIR /application
 RUN . /appenv/bin/activate && \
-    pip3 install -r requirements_test.txt
+    pip3 download -d /build -r requirements_test.txt --no-input && \
+    pip3 install --no-index -f /build -r requirements_test.txt
 
 # Add application source
 COPY todobackend/src /application

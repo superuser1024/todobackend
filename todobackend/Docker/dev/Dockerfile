@@ -21,6 +21,7 @@ VOLUME /wheelhouse
 # Output: Test reports are output here
 VOLUME /reports
 
+
 # Add test entrypoint script
 COPY todobackend/scripts/test.sh /usr/local/bin/test.sh
 RUN chmod +x /usr/local/bin/test.sh
@@ -33,6 +34,8 @@ CMD ["python", "manage.py", "test", "--noinput"]
 # Copy and run requirements installation before copying src to improve caching
 COPY todobackend/src/requirements.txt /application/
 COPY todobackend/src/requirements_test.txt /application/
+COPY todobackend/src/setup.py /application/
+
 WORKDIR /application
 RUN . /appenv/bin/activate && \
     pip3 install -r requirements_test.txt

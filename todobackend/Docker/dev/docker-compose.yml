@@ -25,6 +25,15 @@ services:
         depends_on:
             - db
 
+    builder:
+        build: 
+            context: ../../../
+            dockerfile: todobackend/Docker/dev/Dockerfile
+        volumes: 
+            - ../../../target:/wheelhouse
+        entrypoint: "entrypoint.sh"
+        command: ["pip", "wheel", "."]
+
     db:
         image: mysql:5.7
         hostname: db

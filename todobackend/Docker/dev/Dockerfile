@@ -1,10 +1,6 @@
 FROM reboot87/todobackend-base:latest
 LABEL Maintainer="Adam Scarlat"
 
-# Install dev/build dependencies
-RUN apt-get update && \
-    apt-get install -qy python3-dev default-libmysqlclient-dev build-essential
-
 # Activate virtual environment and install wheel support
 RUN . /appenv/bin/activate && \
     pip install wheel --upgrade

@@ -1,0 +1,66 @@
+version: '3.1'
+
+services:
+
+    app:
+        build: 
+            context: ../../../
+            dockerfile: todobackend/Docker/release/Dockerfile
+        depends_on:
+            - db
+            - nginx
+        restart: on-failure
+        environment: 
+            DJANGO_SETTINGS_MODULE: todobackend.settings.release
+            MYSQL_HOST: db
+            MYSQL_USER: todo
+            MYSQL_PASSWORD: password
+            DEBUG: "true"
+        command: gunicorn --bind unix:/var/www/todobackend/todobackend.sock --workers 3 --access-logfile '-' todobackend.wsgi:application
+        volumes:
+            - webroot:/var/www/todobackend
+
+    test:
+        image: reboot87/todobackend-specs
+        depends_on:
+            - app
+            - nginx        
+        environment: 
+            URL: http://nginx:8000/todos
+            JUNIT_REPORT_PATH: /reports/acceptance.xml
+            JUNIT_REPORT_STACK: 1
+        command: test --reporter mocha-jenkins-reporter
+
+    nginx:
+        image: reboot87/nginx
+        ports:
+            - 8000:8000
+        volumes:
+            - webroot:/var/www/todobackend
+
+    agent:
+        image: philm/ansible_playbook
+        environment:
+            PROBE_HOST: "db"
+            PROBE_PORT: "3306"
+        volumes:
+            - ../../ansible:/ansible/playbooks
+        command: ["probe.yaml"]
+        depends_on:
+            - db
+    db:
+        image: mysql:5.7
+        hostname: db
+        command: --default-authentication-plugin=mysql_native_password
+        ports:
+            - 3306:3306
+        environment: 
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_DATABASE: todobackend
+            MYSQL_USER: todo
+            MYSQL_PASSWORD: password
+        volumes:
+            - ./mysql57_db:/var/lib/mysql:delegated
+
+volumes: 
+    webroot:

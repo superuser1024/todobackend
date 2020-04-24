@@ -141,3 +141,5 @@ cython_debug/
 unittests.xml
 todobackend/src/unittests.xml
 todobackend/src/unittests.xml
+
+*mysql57*

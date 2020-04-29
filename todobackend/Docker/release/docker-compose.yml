@@ -39,15 +39,14 @@ services:
             - webroot:/var/www/todobackend
 
     agent:
-        image: philm/ansible_playbook
+        image: reboot87/ansible
         environment:
             PROBE_HOST: "db"
             PROBE_PORT: "3306"
-        volumes:
-            - ../../ansible:/ansible/playbooks
         command: ["probe.yaml"]
         depends_on:
             - db
+            
     db:
         image: mysql:5.7
         hostname: db

@@ -5,7 +5,7 @@ services:
         build: 
             context: ../../../
             dockerfile: todobackend/Docker/dev/Dockerfile
-        command: python3 manage.py test todo.tests
+        command: python3 manage.py test todo.tests --noinput
         volumes:
             - build:/build
         environment: 
@@ -14,7 +14,6 @@ services:
             MYSQL_USER: root
             MYSQL_PASSWORD: password
             TEST_OUTPUT_DIR: /reports
-        restart: on-failure
     
     agent:
         image: reboot87/ansible
@@ -30,8 +29,7 @@ services:
             context: ../../../
             dockerfile: todobackend/Docker/dev/Dockerfile
         volumes: 
-            - ../../../target:/wheelhouse
-            - build:/build
+            - build:/build            
         entrypoint: "entrypoint.sh"
         command: ["pip", "wheel", "-f /build", "."]
 
@@ -49,7 +47,6 @@ services:
             MYSQL_ROOT_HOST: "%"
         volumes:
             - ./mysql57_db:/var/lib/mysql:delegated
-        
+
 volumes: 
     build:
-    mysql57_db:

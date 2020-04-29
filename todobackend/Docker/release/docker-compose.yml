@@ -9,7 +9,6 @@ services:
         depends_on:
             - db
             - nginx
-        restart: on-failure
         environment: 
             DJANGO_SETTINGS_MODULE: todobackend.settings.release
             MYSQL_HOST: db

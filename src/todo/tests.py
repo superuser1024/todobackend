@@ -31,7 +31,7 @@ class TestCreateTodoItem(APITestCase):
         self.assertEqual(TodoItem.objects.count(), 1)
     
     def test_item_has_correct_title(self):
-        self.assertEqual(TodoItem.objects.get().title, 'Walk the dog')
+        self.assertEqual(TodoItem.objects.get().title, 'Walk the dogXX')
     
 class TestUpdateTodoItem(APITestCase):
   """

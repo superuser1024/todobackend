@@ -67,8 +67,6 @@ release:
 	docker-compose -p $(REL_PROJECT) -f $(REL_COMPOSE_FILE) up test
 	docker cp $$(docker-compose -p $(REL_PROJECT) -f $(REL_COMPOSE_FILE) ps -q test):/reports/. reports
 	${CHECK} $(REL_PROJECT) $(REL_COMPOSE_FILE) test
-	# docker-compose -p $(REL_PROJECT) -f $(REL_COMPOSE_FILE) kill
-	# docker-compose -p $(REL_PROJECT) -f $(REL_COMPOSE_FILE) rm -f	
 	${INFO} "Release environment stopped"
 
 # Not working... needs looking into. The app backend is not starting. works when running seperatley from folders...

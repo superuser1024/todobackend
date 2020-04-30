@@ -2,7 +2,7 @@ FROM reboot87/todobackend-base:latest
 LABEL Maintainer="Adam Scarlat"
 
 # Copy application artifacts
-COPY todobackend/target /wheelhouse
+COPY target /wheelhouse
 
 # Install application (all dependencies found in wheelhouse)
 RUN . /appenv/bin/activate && \

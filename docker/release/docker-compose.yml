@@ -4,8 +4,8 @@ services:
 
     app:
         build: 
-            context: ../../../
-            dockerfile: todobackend/Docker/release/Dockerfile
+            context: ../../
+            dockerfile: docker/release/Dockerfile
         depends_on:
             - db
             - nginx

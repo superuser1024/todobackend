@@ -21,7 +21,7 @@ VOLUME /reports
 VOLUME /build
 
 # Add test entrypoint script
-COPY todobackend/scripts/test.sh /usr/local/bin/test.sh
+COPY scripts/test.sh /usr/local/bin/test.sh
 RUN chmod +x /usr/local/bin/test.sh
 
 # Set default for entrypoint (override base image entrypoint)
@@ -30,10 +30,10 @@ ENTRYPOINT [ "test.sh" ]
 CMD ["python", "manage.py", "test", "--noinput"]
 
 # Copy and run requirements installation before copying src to improve caching
-COPY todobackend/src/requirements.txt /application/
-COPY todobackend/src/requirements_test.txt /application/
-COPY todobackend/src/setup.py /application/
-COPY todobackend/src/manage.py /application/
+COPY src/requirements.txt /application/
+COPY src/requirements_test.txt /application/
+COPY src/setup.py /application/
+COPY src/manage.py /application/
 
 WORKDIR /application
 RUN . /appenv/bin/activate && \
@@ -41,6 +41,6 @@ RUN . /appenv/bin/activate && \
     pip3 install --no-index -f /build -r requirements_test.txt
 
 # Add application source
-COPY todobackend/src /application
+COPY src /application
 
 

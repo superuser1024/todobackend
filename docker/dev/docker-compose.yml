@@ -3,8 +3,8 @@ version: '3.1'
 services:
     test:
         build: 
-            context: ../../../
-            dockerfile: todobackend/Docker/dev/Dockerfile
+            context: ../../
+            dockerfile: docker/dev/Dockerfile
         command: python3 manage.py test todo.tests --noinput
         volumes:
             - build:/build
@@ -26,8 +26,8 @@ services:
 
     builder:
         build: 
-            context: ../../../
-            dockerfile: todobackend/Docker/dev/Dockerfile
+            context: ../../
+            dockerfile: docker/dev/Dockerfile
         volumes: 
             - build:/build            
         entrypoint: "entrypoint.sh"

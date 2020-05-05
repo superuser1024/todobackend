@@ -30,6 +30,7 @@ Release Image
 - Run acceptance tests (node mocha tests)
     * docker-compose up test
     
+    
 
 
 

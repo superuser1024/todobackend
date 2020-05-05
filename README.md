@@ -29,6 +29,8 @@ Release Image
 - Run the docker-compose 
 - Run acceptance tests (node mocha tests)
     * docker-compose up test
+    
+
 
 
 

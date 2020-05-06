@@ -21,7 +21,7 @@ node {
         sh 'make publish'
 
         stage 'Deploy release'
-        build job: 'todobackend-deploy', parameters: [string(name: 'IMAGE_TAG', value: 'reboot87/todobackend:latest'), string(name: 'TASKS', value: ''), password(description: 'Database password', name: 'db_password', value: <object of type hudson.util.Secret>)]
+        build job: 'todobackend-deploy'
         
     }
     finally {

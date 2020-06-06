@@ -8,7 +8,7 @@ setup (
     include_package_data    = True,
     scripts                  = ["manage.py"],
     install_requires        = [ "asgiref==3.2.7",
-                                "Django==3.0.5",
+                                "Django==3.0.7",
                                 "django-cors-headers==3.2.1",
                                 "djangorestframework==3.11.0",
                                 "mysqlclient==1.4.6",
